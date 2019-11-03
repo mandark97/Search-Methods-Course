@@ -1,20 +1,10 @@
 from cell import Cell
 
+import argparse
+
 
 MOVEMENTS = [(2, 1), (2, -1), (-2, 1), (-2, -1),
              (1, 2), (1, -2), (-1, 2), (-1, -2)]
-
-
-class Counter:
-    # wraps a function, to keep a running count of how many
-    # times it's been called
-    def __init__(self, func):
-        self.func = func
-        self.count = count
-
-    def __call__(self, *args, **kwargs):
-        self.count += 1
-        return self.func(*args, **kwargs)
 
 
 class BFS(object):
@@ -35,7 +25,6 @@ class BFS(object):
             if current_cell == dest:
                 return current_cell
             self.step(current_cell)
-        print("ended")
 
     def initialize_run(self, src):
         self.visited[src.x][src.y] = src
@@ -61,7 +50,7 @@ class BidirectionalSearch(object):
     def run(self, src, dest):
         self.bfs1.initialize_run(src)
         self.bfs2.initialize_run(dest)
-        while True:
+        while len(self.bfs1.queue) > 0 and len(self.bfs2.queue) > 0:
             if len(self.bfs1.queue) < len(self.bfs2.queue):
                 search_1, search_2 = self.bfs1, self.bfs2
             else:
@@ -73,12 +62,27 @@ class BidirectionalSearch(object):
 
             search_1.step(current_cell)
 
+        return None, None
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--dim", default=30, help="Dimension of chess table")
+parser.add_argument("--src_x", default=0, help="Starting point")
+parser.add_argument("--src_y", default=0, help="Starting point")
+parser.add_argument("--dest_x", default=29, help="Destination point")
+parser.add_argument("--dest_y", default=29, help="Destination point")
+parser.add_argument("--method", default="bfs",
+                    help="Method used: bfs/bidirectional")
 
 if __name__ == "__main__":
-    n = 30
-    src = Cell(0, 0)
-    dest = Cell(29, 29)
-    # road = BFS(n).run(src, dest)
-    bs = BidirectionalSearch(n)
-    road1, road2 = bs.run(src, dest)
-    print(road1.dist, road2.dist)
+    args = parser.parse_args()
+    n = int(args.dim)
+    src = Cell(int(args.src_x), int(args.src_y))
+    dest = Cell(int(args.dest_x), int(args.dest_y))
+    if args.method == "bfs":
+        road = BFS(n).run(src, dest)
+        print(road.dist)
+    else:
+        bs = BidirectionalSearch(n)
+        road1, road2 = bs.run(src, dest)
+        print(road1.dist + road2.dist)
