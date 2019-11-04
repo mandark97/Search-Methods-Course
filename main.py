@@ -81,8 +81,8 @@ if __name__ == "__main__":
     dest = Cell(int(args.dest_x), int(args.dest_y))
     if args.method == "bfs":
         road = BFS(n).run(src, dest)
-        print(road.dist)
+        print(road.road)
     else:
         bs = BidirectionalSearch(n)
         road1, road2 = bs.run(src, dest)
-        print(road1.dist + road2.dist)
+        print(road1.road + road2.road)
