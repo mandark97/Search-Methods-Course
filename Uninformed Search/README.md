@@ -1,6 +1,6 @@
 # Uninformed Search Problem
 
-## Check Knight Problem | Find Shortest path from source to destination
+## Chess Knight Problem | Find Shortest path from source to destination
 
 Given a chess board, find the shortest distance (minimum number of steps) taken by a Knight to reach given destination from given source.
 
