@@ -8,14 +8,10 @@ MOVEMENTS = [(2, 1), (2, -1), (-2, 1), (-2, -1),
 
 
 class BFS(object):
-    def __init__(self, dim, visit_matrix=None):
+    def __init__(self, dim):
         self.dim = dim
         self.queue = []
-
-        if visit_matrix:
-            self.visited = visit_matrix
-        else:
-            self.visited = [[None for i in range(dim)] for j in range(dim)]
+        self.visited = [[None for i in range(dim)] for j in range(dim)]
 
     def run(self, src, dest):
         self.initialize_run(src)
@@ -36,10 +32,6 @@ class BFS(object):
             if new_cell.is_valid(self.dim, self.visited):
                 self.visited[new_cell.x][new_cell.y] = new_cell
                 self.queue.append(new_cell)
-
-    # def __visit(self, new_cell):
-    def __full_search(self):
-        return all([all(row) for row in self.visited])
 
 
 class BidirectionalSearch(object):
@@ -81,8 +73,17 @@ if __name__ == "__main__":
     dest = Cell(int(args.dest_x), int(args.dest_y))
     if args.method == "bfs":
         road = BFS(n).run(src, dest)
-        print(road.road)
+        if road:
+            print("Number for steps ", road.dist)
+            print("Road of the knight ", road.road)
+        else:
+            print("No road found")
     else:
         bs = BidirectionalSearch(n)
         road1, road2 = bs.run(src, dest)
-        print(road1.road + road2.road)
+        if road1 and road2:
+            print("Number for steps ", road1.dist + road2.dist)
+            print("Road of the first search", road1.road)
+            print("Road of the second search", road2.road)
+        else:
+            print("No road found")
