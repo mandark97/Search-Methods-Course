@@ -17,14 +17,13 @@ def hill_climbing(problem):
     step = 0
     while True:
         step = step + 1
-        neighbours = problem.near_states(current)
-        if not neighbours:
+        neighbors = problem.near_states(current)
+        if not neighbors:
             break
-        # shuffle(neighbours)
-        neighbour = max(neighbours, key=lambda state: problem.heuristic(state))
-        if problem.heuristic(neighbour) <= problem.heuristic(current):
+        neighbor = max(neighbors, key=lambda state: problem.heuristic(state))
+        if problem.heuristic(neighbor) <= problem.heuristic(current):
             break
-        current = neighbour
+        current = neighbor
         printBoard(current, state=f"step {step}")
     return current
 

@@ -10,7 +10,7 @@ class NQueensSearch(object):
     def initial(self):
         return [randrange(self.N) for i in range(self.N)]
 
-    # number of pairs of queens atacking each other
+    # number of pairs of queens attacking each other
     def heuristic(self, state):
         a, b, c = [Counter() for i in range(3)]
 
