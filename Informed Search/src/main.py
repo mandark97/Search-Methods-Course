@@ -13,7 +13,7 @@ class Node(object):
     def move(self, movement):
         return Node(self, (self.position[0] + movement[0], self.position[1] + movement[1]))
 
-    # check if is in maze's boundries and is not a wall
+    # check if is in maze's boundaries and is not a wall
     def is_valid(self, maze):
         return self.position[0] < len(maze) and \
             self.position[0] >= 0 and \
@@ -27,7 +27,7 @@ MOVEMENTS = [(0, -1), (0, 1), (-1, 0), (1, 0)]
 #              (-1, -1), (-1, 1), (1, -1), (1, 1)]
 
 
-class InformedSearch(object):
+class MazeSearch(object):
     def __init__(self, maze, start, end):
         if maze[start[0]][start[1]] == 1:
             raise "Invalid start"
@@ -126,7 +126,7 @@ def main():
     start = (0, 0)
     end = (7, 6)
 
-    path = InformedSearch(maze, start, end).run(mode="a_star")
+    path = MazeSearch(maze, start, end).run(mode="a_star")
     print(path)
 
 

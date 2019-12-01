@@ -15,3 +15,5 @@ The hill-climbing search algorithm (steepest-ascent version) is simply a loop th
 We initialize the problem with random positions for the queens and we display each intermediate state of the chess board. To solve this problem we used as a heuristic the number of pairs of queens attacking each other, either directly or indirectly. 
 
 The algorithm doesn't guarantee the optimal solution and it can get stuck in a local maxima.
+
+![hill climbing](imgs/hill_climbing.jpeg)
